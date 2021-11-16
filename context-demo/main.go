@@ -40,4 +40,11 @@ func main() {
 	// fmt.Println("ctx error", ctx.Value("aa"))
 
 	time.Sleep(2 * time.Second)
+	fmt.Println(&ctx)
+
+	ctx2 := context.WithValue(ctx, 111, "a")
+	fmt.Println(&ctx2)
+
+	ctx3, _ := context.WithDeadline(ctx, time.Now())
+	fmt.Println(ctx3.Value(&ctx))
 }
