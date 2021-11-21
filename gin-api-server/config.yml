@@ -1,0 +1,103 @@
+logger:
+  # 日志级别(panic, fatal, error, warn, info, debug, trace)
+  level: debug
+
+http:
+  # 运行模式(debug:调试, release:正式)
+  run_mode: debug
+  # HTTP 监听地址
+  addr: :8090
+  # 证书路径
+  cert_file: ""
+  # 证书密钥
+  key_file: ""
+  # http 优雅关闭等待超时时长(单位秒)
+  shutdown_timeout: 30
+  # 允许的最大内容长度(64M)
+  max_content_length: 67108864
+  # 允许输出的最大请求日志长度
+  max_req_logger_length: 1024
+  session:
+    # Session 名称
+    name: session
+    # Session 密钥
+    secret: secret
+    # Session 过期时间(单位秒)
+    expire_duration: 604800
+    # Session Cookie path
+    path: /
+  cors:
+    # 是否启用
+    enable: true
+    # 允许跨域请求的域名列表(*表示全部允许)
+    allow_origins: ["*"]
+    # 允许跨域请求的请求方式列表
+    allow_methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+    # 允许客户端与跨域请求一起使用的非简单标头的列表
+    allow_headers: []
+    # 请求是否可以包含cookie，HTTP身份验证或客户端SSL证书等用户凭据
+    allow_credentials: true
+    # 可以缓存预检请求结果的时间（以秒为单位）
+    max_age: 7200
+  swagger:
+    # 是否启用
+    enable: true
+
+database:
+  # 是否开启调试模式
+  debug: true
+  # 数据库类型，sqlite3，postgres，mysql
+  type: sqlite3
+  # 数据库连接
+  dsn: storage/database.db
+  # 设置连接可以重用的最长时间(单位：秒)
+  max_lifetime: 7200
+  # 设置数据库的最大打开连接数
+  max_open_conns: 10
+  # 设置空闲连接池中的最大连接数
+  max_ddle_conns: 50
+  # 数据库表名前缀
+  table_prefix: ""
+  # 是否启用自动映射数据库表结构
+  enable_auto_migrate: true
+
+seeder:
+  # 初始化用户
+  users:
+    - name: admin
+      email: admin@xmfunny.com
+      password: secret
+      is_admin: true
+    - name: demo
+      email: demo@xmfunny.com
+      password: secret
+      is_admin: false
+  # 初始化角色
+  roles:
+    - name: 组织拥有者
+      permissions:
+        - org:update
+        - org:delete
+        - org:list-deleted-app
+        - org:restore-deleted-app
+        - app:get
+        - app:create
+        - app:update
+        - app:delete
+        - app:update-member
+        - app:invite-member
+        - app:resend-member-invite-email
+    - name: 应用管理员
+      permissions:
+        - org:update-app-member
+        - org:list-deleted-app
+        - app:get
+        - app:update
+        - app:update-member
+        - app:invite-member
+        - app:resend-member-invite-email
+    - name: 应用普通成员
+      permissions:
+        - app:get
+        - org:list-deleted-app
+
