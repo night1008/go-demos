@@ -10,4 +10,5 @@ require (
 	gorm.io/driver/sqlite v1.2.3 // indirect
 	gorm.io/gorm v1.22.2 // indirect
 	gorm.io/plugin/soft_delete v1.0.4 // indirect
+	xorm.io/xorm v1.3.0 // indirect
 )
